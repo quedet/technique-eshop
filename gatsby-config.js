@@ -27,5 +27,12 @@ module.exports = {
       "path": "./src/pages/"
     },
     __key: "pages"
+  }, {
+    resolve: `gatsby-source-stripe`,
+    options: {
+      objects: ['Balance', 'BalanceTransaction', 'Product', 'ApplicationFee', 'Sku', 'Subscription'],
+      secretKey: 'sk_test_51L3grzLYPCfKoj0ipldPuyJso1Ti6PlZ8WqdZqcAh7XWOhcwhA9Nwt1G5ebZm5AvGAr8VxIlnSMZMLA9V0IojTRe00JGbkBNZP',
+      downloadFiles: true
+    }
   }]
 };
