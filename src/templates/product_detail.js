@@ -1,25 +1,19 @@
 import { GatsbyImage } from "gatsby-plugin-image"
-import React from "react"
+import React, { useState } from "react"
+import AddToCartButton from "../components/AddToCart"
 import Layout from "../components/Layout"
-import Cookies from "js-cookie"
 
 export default function Product_Detail ({ pageContext: { product } }) {
-    const addToCart = (evt) => {
-        evt.preventDefault()
+    const [quantity, setQuantity] = useState(1)
 
+    const handleChange = (evt) => {
+        evt.preventDefault()
         const form_data = new FormData(evt.target)
         const quantity = form_data.get('quantity')
 
-        const data = {
-            ...product,
-            quantity
-        }
-
-        if (data) {
-            Cookies.set('carts', data, { expires: 7, path: '/', sameSite: 'strict' })
-        }
+        setQuantity(quantity)
     }
-    
+
     return (
         <Layout>
             <div className="product_detail _container">
@@ -51,15 +45,15 @@ export default function Product_Detail ({ pageContext: { product } }) {
                     <div className="product-price">
                         <div>$ {product.price}</div>
                     </div>
-                    <form method="POST" className="product-quantity-form" onSubmit={addToCart}>
+                    <form method="POST" className="product-quantity-form" onSubmit={(evt) => { evt.preventDefault() }}>
                         <div className="product-quantity-form-item">
                             <div className="form-item-inner">
                                 <label htmlFor="product_quantity">Quantity</label>
-                                <input type="number" defaultValue={1} name="quantity" id="product_quantity" />
+                                <input type="number" defaultValue={quantity} name="quantity" id="product_quantity" onChange={handleChange} />
                             </div>
                         </div>
                         <div className="product-quantity-form-submit">
-                            <input type="submit" value="ADD TO CART"/>
+                            <AddToCartButton product={product} quantity={quantity} />
                         </div>
                     </form>
                     <div className="product-meta">
