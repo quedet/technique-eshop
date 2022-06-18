@@ -15,12 +15,11 @@ export default function Product_Detail ({ pageContext: { product } }) {
             quantity
         }
 
-        console.log(data)
-
         if (data) {
-            Cookies.set('carts', data, { expires: 7, sameSite: 'strict' })
+            Cookies.set('carts', data, { expires: 7, path: '/', sameSite: 'strict' })
         }
     }
+    
     return (
         <Layout>
             <div className="product_detail _container">
